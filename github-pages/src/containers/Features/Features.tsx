@@ -1,6 +1,5 @@
-import React from "react";
 import { Card } from "../../components";
-import { MDBRow, MDBCol, MDBCardGroup } from "mdb-react-ui-kit";
+import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 export default function Features() {
   return (

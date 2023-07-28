@@ -1,13 +1,9 @@
-import React from "react";
 import {
   MDBCard,
   MDBCardImage,
   MDBCardBody,
   MDBCardTitle,
   MDBCardText,
-  MDBCardLink,
-  MDBListGroup,
-  MDBListGroupItem,
   MDBBtn,
 } from "mdb-react-ui-kit";
 
