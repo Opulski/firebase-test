@@ -16,4 +16,5 @@ jobs:
           node-version: 19.5
       - name: Deploy
         run: |
+          cd github-pages
           npm deploy
