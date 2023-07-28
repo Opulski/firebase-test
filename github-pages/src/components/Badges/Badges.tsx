@@ -19,7 +19,7 @@ export default function App() {
                 of MDB.
               </p>
               <small>
-                <a href="">Learn more!</a>
+                <a href="">Learn more</a>
               </small>
             </div>
             <div className="vr" style={{ height: "250px" }}></div>
