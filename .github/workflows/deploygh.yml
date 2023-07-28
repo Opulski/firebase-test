@@ -17,10 +17,10 @@ jobs:
       - name: Deploy
         run: |
           cd github-pages
-          ls -al
-          echo "www.opulski.de" >> ./dist/CNAME
           git config --global user.email "ludwig.opulski@gmail.com"
           git config --global user.name "Ludwig Opulski"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           npm ci
+          npm run build
+          echo "www.opulski.de" >> ./dist/CNAME
           npm run deploy
