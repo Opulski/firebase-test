@@ -17,4 +17,5 @@ jobs:
       - name: Deploy
         run: |
           cd github-pages
+          npm ci
           npm run deploy
