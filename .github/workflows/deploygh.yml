@@ -19,5 +19,6 @@ jobs:
           cd github-pages
           git config --global user.email "ludwig.opulski@gmail.com"
           git config --global user.name "Ludwig Opulski"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           npm ci
           npm run deploy
