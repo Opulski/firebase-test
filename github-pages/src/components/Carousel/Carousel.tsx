@@ -6,7 +6,7 @@ export default function App() {
       <MDBCarouselItem
         className="w-100 d-block"
         itemId={1}
-        src="https://picsum.photos/987/435"
+        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
         alt="..."
       >
         <h5>First slide label</h5>
@@ -16,7 +16,7 @@ export default function App() {
       <MDBCarouselItem
         className="w-100 d-block"
         itemId={2}
-        src="https://picsum.photos/987/436" //987 / 435
+        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" //987 / 435
         alt="..."
       >
         <h5>Second slide label</h5>
@@ -26,7 +26,7 @@ export default function App() {
       <MDBCarouselItem
         className="w-100 d-block"
         itemId={3}
-        src="https://picsum.photos/987/437"
+        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
         alt="..."
       >
         <h5>Third slide label</h5>
