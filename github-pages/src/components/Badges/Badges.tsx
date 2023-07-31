@@ -21,7 +21,7 @@ export default function App() {
                 <a href="">Learn more</a>
               </small>
             </div>
-            <div className="vr" style={{ height: "250px" }}></div>
+            <div className="vr" style={{ height: "100px" }}></div>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ export default function App() {
                 <a href="">Learn more</a>
               </small>
             </div>
-            <div className="vr" style={{ height: "250px" }}></div>
+            <div className="vr" style={{ height: "100px" }}></div>
           </div>
         </div>
 

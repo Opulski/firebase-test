@@ -4,7 +4,7 @@ import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 export default function Features() {
   return (
     <>
-      <MDBRow className="row-cols-2 row-cols-md-4 g-4">
+      <MDBRow className="row-cols-1 row-cols-md-4 g-4">
         <MDBCol>
           <Card imageURL="https://picsum.photos/200" />
         </MDBCol>
