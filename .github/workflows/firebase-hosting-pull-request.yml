@@ -15,3 +15,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LEARNREACT_8690D }}'
           projectId: learnreact-8690d
+          entrypoint: "./github-pages"
