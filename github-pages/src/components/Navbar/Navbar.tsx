@@ -11,60 +11,15 @@ import SignInButton from "../SignInButton/SignInButton";
 import SignOutButton from "../SignOut/SignOutButton";
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: "learnreact-8690d.firebaseapp.com",
-  projectId: "learnreact-8690d",
-  storageBucket: "learnreact-8690d.appspot.com",
-  messagingSenderId: "626756468362",
-  appId: "1:626756468362:web:0862dcc169d9c068237773",
-  measurementId: "G-0JFMXP9Z0M",
-};
+import getFirebaseConfig from "../../firebase/Firebase-Config";
+import { signInUser, SignOutUser } from "../../firebase/Firebase";
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(getFirebaseConfig());
 
 const auth = getAuth();
-const provider = new GoogleAuthProvider();
-
-const signInOnClick = () =>
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential?.accessToken;
-      // The signed-in user info.
-      // const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-      console.log(result);
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.customData.email;
-      // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-      console.log(error);
-    });
-
-const signOutOnClick = () =>
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-    })
-    .catch((error) => {
-      // An error happened.
-      console.log(error);
-    });
 
 const Menu = () => (
   <>
@@ -78,7 +33,7 @@ const Menu = () => (
     </MDBNavbarItem>
 
     <MDBNavbarItem>
-      <MDBNavbarLink href="/">Pricing</MDBNavbarLink>
+      <MDBNavbarLink href="/Pricing">Pricing</MDBNavbarLink>
     </MDBNavbarItem>
   </>
 );
@@ -103,6 +58,19 @@ export default function Navbar() {
       }
     });
   }, []);
+
+  const navigate = useNavigate();
+  const onClickSignIn = async () => {
+    try {
+      const userCredential = await signInUser();
+      if (userCredential) {
+        navigate("/profile");
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <MDBNavbar expand="lg" light bgColor="light" className="sticky-top">
       <MDBContainer fluid>
@@ -111,14 +79,14 @@ export default function Navbar() {
         <MDBNavbarNav>
           <Menu></Menu>
         </MDBNavbarNav>
-        {loggedIn || <SignInButton text="SignUp" onClick={signInOnClick} />}
+        {loggedIn || <SignInButton text="SignUp" onClick={onClickSignIn} />}
       </MDBContainer>
       {loggedIn || (
-        <MDBBtn color="primary" onClick={signInOnClick}>
+        <MDBBtn color="primary" onClick={onClickSignIn}>
           SignIn
         </MDBBtn>
       )}
-      {loggedIn && <SignOutButton onClick={signOutOnClick} />}
+      {loggedIn && <SignOutButton onClick={SignOutUser} />}
     </MDBNavbar>
   );
 }
