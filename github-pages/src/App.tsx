@@ -72,7 +72,7 @@ const App = () => {
   };
 
   const handleLogout = async () => {
-    const user = await SignOutUser();
+    await SignOutUser();
     setToken(null);
   };
 

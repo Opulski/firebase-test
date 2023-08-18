@@ -62,9 +62,9 @@ export const SignInUserWithTwitter = async () => {
   signInUser(twitterProvider);
   return getRedirectResult(auth)
     .then((result) => {
-      const credential = result
-        ? TwitterAuthProvider.credentialFromResult(result)
-        : null;
+      // const credential = result
+      //   ? TwitterAuthProvider.credentialFromResult(result)
+      //   : null;
 
       // The signed-in user info.
       return result?.user;

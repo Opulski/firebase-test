@@ -10,7 +10,7 @@ import {
 import SignInButton from "../SignInButton/SignInButton";
 import SignOutButton from "../SignOut/SignOutButton";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import getFirebaseConfig from "../../firebase/Firebase-Config";
 import { AuthContext } from "../../App";
@@ -46,7 +46,6 @@ interface Props {
 }
 
 export default function Navbar({ onLogin, onLogout }: Props) {
-  const navigate = useNavigate();
   const token = useContext(AuthContext);
 
   return (
