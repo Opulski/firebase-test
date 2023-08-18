@@ -7,7 +7,7 @@ import {
   MDBBtn,
   MDBIcon,
 } from "mdb-react-ui-kit";
-import { SignInUserWithGoogle } from "../../firebase/Firebase";
+
 import { AuthContext } from "../../App";
 
 interface Props {

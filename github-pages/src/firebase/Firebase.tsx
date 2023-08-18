@@ -12,7 +12,6 @@ import {
   FacebookAuthProvider,
   TwitterAuthProvider,
   GithubAuthProvider,
-  UserCredential,
 } from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
@@ -45,9 +44,9 @@ export const SignInUserWithGithub = async () => {
   signInUser(githubProvider);
   return getRedirectResult(auth)
     .then((result) => {
-      const credential = result
-        ? GithubAuthProvider.credentialFromResult(result)
-        : null;
+      // const credential = result
+      //   ? GithubAuthProvider.credentialFromResult(result)
+      //   : null;
 
       // The signed-in user info.
       return result?.user;

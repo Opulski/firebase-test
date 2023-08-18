@@ -1,11 +1,5 @@
 import { Navbar } from "./components";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // import { AuthContext } from "./Auth-Context";
 import {
   SignInUserWithFacebook,
@@ -18,7 +12,7 @@ import { useContext, useState, createContext, ReactNode } from "react";
 import { Home, Features, Pricing, Login } from "./containers";
 import "./App.css";
 import Profile from "./containers/Profile/Profile";
-import { getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+import { getRedirectResult } from "firebase/auth";
 
 export const AuthContext = createContext<null | string>(null);
 
@@ -28,34 +22,53 @@ const App = () => {
   const handleLoginGoogle = async () => {
     const auth = SignInUserWithGoogle();
     const user = await getRedirectResult(auth).then((result) => {
-      const credential = result
-        ? GoogleAuthProvider.credentialFromResult(result)
-        : null;
+      // const credential = result
+      //   ? GoogleAuthProvider.credentialFromResult(result)
+      //   : null;
 
       // The signed-in user info.
-      console.log(result?.user);
-      console.log("test");
       return result?.user;
     });
     if (user != undefined) setToken(user?.refreshToken);
   };
 
   const handleLoginTwitter = async () => {
-    const user = await SignInUserWithTwitter();
+    const auth = await SignInUserWithTwitter();
+    const user = await getRedirectResult(auth).then((result) => {
+      // const credential = result
+      //   ? GoogleAuthProvider.credentialFromResult(result)
+      //   : null;
 
-    setToken(null);
+      // The signed-in user info.
+      return result?.user;
+    });
+    if (user != undefined) setToken(user?.refreshToken);
   };
 
   const handleLoginGithub = async () => {
-    const user = await SignInUserWithGithub();
+    const auth = await SignInUserWithGithub();
+    const user = await getRedirectResult(auth).then((result) => {
+      // const credential = result
+      //   ? GoogleAuthProvider.credentialFromResult(result)
+      //   : null;
 
-    setToken(null);
+      // The signed-in user info.
+      return result?.user;
+    });
+    if (user != undefined) setToken(user?.refreshToken);
   };
 
   const handleLoginFacebook = async () => {
-    const user = await SignInUserWithFacebook();
+    const auth = await SignInUserWithFacebook();
+    const user = await getRedirectResult(auth).then((result) => {
+      // const credential = result
+      //   ? GoogleAuthProvider.credentialFromResult(result)
+      //   : null;
 
-    setToken(null);
+      // The signed-in user info.
+      return result?.user;
+    });
+    if (user != undefined) setToken(user?.refreshToken);
   };
 
   const handleLogout = async () => {
