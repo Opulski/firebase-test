@@ -82,8 +82,8 @@ const App = () => {
       <AuthContext.Provider value={token}>
         <Navbar onLogin={handleLoginGoogle} onLogout={handleLogout} />
         <Routes>
-          <Route index element={<Home onLogin={handleLoginGoogle} />} />
-          <Route path="home" element={<Home onLogin={handleLoginGoogle} />} />
+          <Route index element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route
             path="login"
             element={

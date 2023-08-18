@@ -66,7 +66,7 @@ export default function Navbar({ onLogin, onLogout }: Props) {
             to={"/login"}
             style={({ isActive, isPending }) => {
               return {
-                fontWeight: isActive ? "bold" : "",
+                fontWeight: isActive ? "bold" : "bold",
                 color: isPending ? "white" : "white",
               };
             }}
