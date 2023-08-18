@@ -61,8 +61,18 @@ export default function Navbar({ onLogin, onLogout }: Props) {
         {token != null || <SignInButton text="SignUp" onClick={onLogin} />}
       </MDBContainer>
       {token != null || (
-        <MDBBtn color="primary" onClick={onLogin}>
-          SignIn
+        <MDBBtn color="primary">
+          <NavLink
+            to={"/login"}
+            style={({ isActive, isPending }) => {
+              return {
+                fontWeight: isActive ? "bold" : "",
+                color: isPending ? "white" : "white",
+              };
+            }}
+          >
+            SignIn
+          </NavLink>
         </MDBBtn>
       )}
       {token != null && <SignOutButton onClick={onLogout} />}
