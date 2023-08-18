@@ -5,7 +5,7 @@ import Layout from "../Layout/Layout";
 import { useContext } from "react";
 
 interface Props {
-  onLogin: () => Promise<void>;
+  onLogin: () => void;
 }
 
 const Home = ({ onLogin }: Props) => {

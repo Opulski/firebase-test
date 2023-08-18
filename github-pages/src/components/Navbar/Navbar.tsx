@@ -34,14 +34,14 @@ const Menu = () => (
 
     <MDBNavbarItem>
       <MDBNavbarLink>
-        <NavLink to={"/Pricing"}>Pricing</NavLink>
+        <NavLink to={"/protected"}>Protected Route</NavLink>
       </MDBNavbarLink>
     </MDBNavbarItem>
   </>
 );
 
 interface Props {
-  onLogin: () => Promise<void>;
+  onLogin: () => void;
   onLogout: () => Promise<void>;
 }
 

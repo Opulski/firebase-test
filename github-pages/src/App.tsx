@@ -8,67 +8,52 @@ import {
   SignInUserWithTwitter,
   SignOutUser,
 } from "./firebase/Firebase";
-import { useContext, useState, createContext, ReactNode } from "react";
+import {
+  useContext,
+  useState,
+  createContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import { Home, Features, Pricing, Login } from "./containers";
 import "./App.css";
 import Profile from "./containers/Profile/Profile";
 import { getRedirectResult } from "firebase/auth";
+import { auth } from "./firebase/Firebase";
 
 export const AuthContext = createContext<null | string>(null);
 
 const App = () => {
   const [token, setToken] = useState<null | string>(null);
 
-  const handleLoginGoogle = async () => {
-    const auth = SignInUserWithGoogle();
-    const user = await getRedirectResult(auth).then((result) => {
-      // const credential = result
-      //   ? GoogleAuthProvider.credentialFromResult(result)
-      //   : null;
-
-      // The signed-in user info.
-      return result?.user;
+  const fucking = async () => {
+    await getRedirectResult(auth).then((user) => {
+      console.log("Fuck");
+      if (undefined != user) setToken(user?.user.refreshToken);
     });
-    if (user != undefined) setToken(user?.refreshToken);
   };
 
-  const handleLoginTwitter = async () => {
-    const auth = await SignInUserWithTwitter();
-    const user = await getRedirectResult(auth).then((result) => {
-      // const credential = result
-      //   ? GoogleAuthProvider.credentialFromResult(result)
-      //   : null;
+  useEffect(() => {
+    fucking();
+  });
 
-      // The signed-in user info.
-      return result?.user;
-    });
-    if (user != undefined) setToken(user?.refreshToken);
+  const handleLoginGoogle = async () => {
+    SignInUserWithGoogle();
   };
 
   const handleLoginGithub = async () => {
-    const auth = await SignInUserWithGithub();
-    const user = await getRedirectResult(auth).then((result) => {
-      // const credential = result
-      //   ? GoogleAuthProvider.credentialFromResult(result)
-      //   : null;
+    SignInUserWithGithub();
+  };
 
-      // The signed-in user info.
-      return result?.user;
+  const handleLoginTwitter = async () => {
+    await SignInUserWithTwitter().then((user) => {
+      if (undefined != user) setToken(user?.refreshToken);
     });
-    if (user != undefined) setToken(user?.refreshToken);
   };
 
   const handleLoginFacebook = async () => {
-    const auth = await SignInUserWithFacebook();
-    const user = await getRedirectResult(auth).then((result) => {
-      // const credential = result
-      //   ? GoogleAuthProvider.credentialFromResult(result)
-      //   : null;
-
-      // The signed-in user info.
-      return result?.user;
-    });
-    if (user != undefined) setToken(user?.refreshToken);
+    const user = await SignInUserWithFacebook();
+    if (undefined != user) setToken(user?.refreshToken);
   };
 
   const handleLogout = async () => {
@@ -81,11 +66,11 @@ const App = () => {
   }
   const ProtectedRoute = ({ children }: Props) => {
     const token = useContext(AuthContext);
-    console.log(token);
+    console.log("TOKEN IS NULL");
     const location = useLocation();
 
     if (token == null) {
-      console.log(token);
+      console.log("Fucking Fuck");
       return <Navigate to="/login" replace state={{ from: location }} />;
     }
 
@@ -113,7 +98,7 @@ const App = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="features" element={<Features />} />
           <Route
-            path="Pricing"
+            path="protected"
             element={
               <ProtectedRoute>
                 <Pricing />

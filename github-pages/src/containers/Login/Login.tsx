@@ -11,7 +11,7 @@ import {
 import { AuthContext } from "../../App";
 
 interface Props {
-  handleLoginGoogle: () => Promise<void>;
+  handleLoginGoogle: () => void;
   handleLoginTwitter: () => Promise<void>;
   handleLoginGithub: () => Promise<void>;
   handleLoginFacebook: () => Promise<void>;
