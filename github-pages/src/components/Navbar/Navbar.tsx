@@ -9,84 +9,64 @@ import {
 } from "mdb-react-ui-kit";
 import SignInButton from "../SignInButton/SignInButton";
 import SignOutButton from "../SignOut/SignOutButton";
-import { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+
+import { NavLink, useNavigate } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import getFirebaseConfig from "../../firebase/Firebase-Config";
-import { signInUser, SignOutUser } from "../../firebase/Firebase";
+import { AuthContext } from "../../App";
+import { useContext } from "react";
 
 // Initialize Firebase
 export const app = initializeApp(getFirebaseConfig());
 
-const auth = getAuth();
-
 const Menu = () => (
   <>
     <MDBNavbarItem>
-      <MDBNavbarLink active aria-current="page" href="/">
-        Home
+      <MDBNavbarLink active aria-current="page">
+        <NavLink to={"/"}>Home</NavLink>
       </MDBNavbarLink>
     </MDBNavbarItem>
     <MDBNavbarItem>
-      <MDBNavbarLink href="/">Features</MDBNavbarLink>
+      <MDBNavbarLink>
+        <NavLink to={"/features"}>Features</NavLink>
+      </MDBNavbarLink>
     </MDBNavbarItem>
 
     <MDBNavbarItem>
-      <MDBNavbarLink href="/Pricing">Pricing</MDBNavbarLink>
+      <MDBNavbarLink>
+        <NavLink to={"/Pricing"}>Pricing</NavLink>
+      </MDBNavbarLink>
     </MDBNavbarItem>
   </>
 );
 
-export default function Navbar() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        setLoggedIn(true);
-        // ...
-        console.log("uid", uid);
-        console.log("displayName", user.displayName);
-      } else {
-        // User is signed out
-        // ...
-        console.log("user is logged out");
-        setLoggedIn(false);
-      }
-    });
-  }, []);
+interface Props {
+  onLogin: () => Promise<void>;
+  onLogout: () => Promise<void>;
+}
 
+export default function Navbar({ onLogin, onLogout }: Props) {
   const navigate = useNavigate();
-  const onClickSignIn = async () => {
-    try {
-      const userCredential = await signInUser();
-      if (userCredential) {
-        navigate("/profile");
-      }
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  };
+  const token = useContext(AuthContext);
 
   return (
     <MDBNavbar expand="lg" light bgColor="light" className="sticky-top">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="/Layout">Ludwig</MDBNavbarBrand>
+        <MDBNavbarBrand>
+          <NavLink to={"/home"}>Ludwig</NavLink>
+        </MDBNavbarBrand>
 
         <MDBNavbarNav>
           <Menu></Menu>
         </MDBNavbarNav>
-        {loggedIn || <SignInButton text="SignUp" onClick={onClickSignIn} />}
+        {token != null || <SignInButton text="SignUp" onClick={onLogin} />}
       </MDBContainer>
-      {loggedIn || (
-        <MDBBtn color="primary" onClick={onClickSignIn}>
+      {token != null || (
+        <MDBBtn color="primary" onClick={onLogin}>
           SignIn
         </MDBBtn>
       )}
-      {loggedIn && <SignOutButton onClick={SignOutUser} />}
+      {token != null && <SignOutButton onClick={onLogout} />}
     </MDBNavbar>
   );
 }

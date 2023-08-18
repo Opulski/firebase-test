@@ -7,12 +7,24 @@ import {
   MDBBtn,
   MDBIcon,
 } from "mdb-react-ui-kit";
-import { signInUser } from "../../firebase/Firebase";
-import { AuthContext } from "../../Auth-Context";
+import { SignInUserWithGoogle } from "../../firebase/Firebase";
+import { AuthContext } from "../../App";
 
-function Login() {
-  const { currentUser } = useContext(AuthContext);
-  if (!currentUser)
+interface Props {
+  handleLoginGoogle: () => Promise<void>;
+  handleLoginTwitter: () => Promise<void>;
+  handleLoginGithub: () => Promise<void>;
+  handleLoginFacebook: () => Promise<void>;
+}
+
+function Login({
+  handleLoginGoogle,
+  handleLoginTwitter,
+  handleLoginGithub,
+  handleLoginFacebook,
+}: Props) {
+  const token = useContext(AuthContext);
+  if (!token)
     return (
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <MDBInput
@@ -55,6 +67,7 @@ function Login() {
               color="none"
               className="m-1"
               style={{ color: "#1266f1" }}
+              onClick={handleLoginFacebook}
             >
               <MDBIcon fab icon="facebook-f" size="sm" />
             </MDBBtn>
@@ -64,6 +77,7 @@ function Login() {
               color="none"
               className="m-1"
               style={{ color: "#1266f1" }}
+              onClick={handleLoginTwitter}
             >
               <MDBIcon fab icon="twitter" size="sm" />
             </MDBBtn>
@@ -73,7 +87,7 @@ function Login() {
               color="none"
               className="m-1"
               style={{ color: "#1266f1" }}
-              onClick={signInUser}
+              onClick={handleLoginGoogle}
             >
               <MDBIcon fab icon="google" size="sm" />
             </MDBBtn>
@@ -83,6 +97,7 @@ function Login() {
               color="none"
               className="m-1"
               style={{ color: "#1266f1" }}
+              onClick={handleLoginGithub}
             >
               <MDBIcon fab icon="github" size="sm" />
             </MDBBtn>
